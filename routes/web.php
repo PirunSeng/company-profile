@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,5 +28,7 @@ Route::get('/about', function () {
 })->middleware('age');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    // $users = User::all(); // using this, in view no need to use Carbon\Carbon::parse(...)
+    $users = DB::table('users')->get();
+    return view('dashboard', compact('users'));
 })->name('dashboard');
