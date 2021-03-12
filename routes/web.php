@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,9 @@ Route::get('/about-bla-bla-bla', [ContactController::class, 'index'])->name('con
 Route::get('/about', function () {
     return view('about');
 })->middleware('age');
+
+Route::get('/category/all', [CategoryController::class, 'index'])->name('categories');
+Route::post('/category/add', [CategoryController::class, 'add'])->name('store.category');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     // $users = User::all(); // using this, in view no need to use Carbon\Carbon::parse(...)
