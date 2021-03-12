@@ -31,22 +31,26 @@
                   <table class="table">
                       <thead>
                         <tr>
-                          <th scope="col">ID</th>
+                          <th scope="col">No</th>
                           <th scope="col">Name</th>
+                          <th scope="col">User</th>
                           <th scope="col">Created At</th>
                         </tr>
                       </thead>
                       <tbody>
+                          <!-- @php($i = 1) -->
                           @foreach($categories as $category)
                               <tr>
-                                  <th scope="row">{{ $category->id }}</th>
+                                  <!-- <th scope="row">{{ $i++ }}</th> -->
+                                  <th scope="row">{{ $categories->firstItem()+$loop->index }}</th>
+                                  <td>{{$category->cat_name}}</td>
                                   <td>{{$category->name}}</td>
                                   <td>{{ Carbon\Carbon::parse($category->created_at)->diffForHumans()}}</td>
                               </tr>
                           @endforeach
                       </tbody>
                     </table>
-
+                    {{ $categories->links() }}
                 </div>
               </div>
           </div>
