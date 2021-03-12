@@ -53,4 +53,15 @@ class CategoryController extends Controller
 
         return Redirect()->back()->with('success', 'Successfully created');
     }
+
+    public function edit($id) {
+        $category = Category::find($id);
+        return view('admin.category.edit', compact('category'));
+    }
+
+    public function update(Request $request, $id) {
+        $category = Category::find($id);
+        $category->update(['name' => $request->name, 'user_id' => Auth::user()->id]);
+        return Redirect()->route('categories')->with('success', 'Successfully updated');
+    }
 }

@@ -30,6 +30,8 @@ Route::get('/about', function () {
 
 Route::get('/category/all', [CategoryController::class, 'index'])->name('categories');
 Route::post('/category/add', [CategoryController::class, 'add'])->name('store.category');
+Route::get('/category/edit/{id}', [CategoryController::class, 'edit']);
+Route::post('/category/update/{id}', [CategoryController::class, 'update']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     // $users = User::all(); // using this, in view no need to use Carbon\Carbon::parse(...)
