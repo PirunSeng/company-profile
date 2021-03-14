@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ContactController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +35,14 @@ Route::post('/category/update/{id}', [CategoryController::class, 'update']);
 Route::get('/category/softDelete/{id}', [CategoryController::class, 'softDelete']);
 Route::get('/category/restore/{id}', [CategoryController::class, 'restore']);
 Route::get('/category/delete/{id}', [CategoryController::class, 'delete']);
+
+Route::get('/brand/all', [BrandController::class, 'index'])->name('brands');
+Route::post('/brand/add', [BrandController::class, 'add'])->name('store.brand');
+Route::get('/brand/edit/{id}', [BrandController::class, 'edit']);
+Route::post('/brand/update/{id}', [BrandController::class, 'update']);
+Route::get('/brand/softDelete/{id}', [BrandController::class, 'softDelete']);
+Route::get('/brand/restore/{id}', [BrandController::class, 'restore']);
+Route::get('/brand/delete/{id}', [BrandController::class, 'delete']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     // $users = User::all(); // using this, in view no need to use Carbon\Carbon::parse(...)
