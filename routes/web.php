@@ -23,7 +23,6 @@ Route::get('/', function () {
 
 Route::get('/about-bla-bla-bla', [ContactController::class, 'index'])->name('con');
 
-
 Route::get('/about', function () {
     return view('about');
 })->middleware('age');
@@ -32,6 +31,9 @@ Route::get('/category/all', [CategoryController::class, 'index'])->name('categor
 Route::post('/category/add', [CategoryController::class, 'add'])->name('store.category');
 Route::get('/category/edit/{id}', [CategoryController::class, 'edit']);
 Route::post('/category/update/{id}', [CategoryController::class, 'update']);
+Route::get('/category/softDelete/{id}', [CategoryController::class, 'softDelete']);
+Route::get('/category/restore/{id}', [CategoryController::class, 'restore']);
+Route::get('/category/delete/{id}', [CategoryController::class, 'delete']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     // $users = User::all(); // using this, in view no need to use Carbon\Carbon::parse(...)

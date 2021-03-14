@@ -22,7 +22,7 @@
       </div>
       <div class="row">
         <div class="col-12 col-sm-9">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <!-- <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg"> -->
               <div class="card">
                 <div class="card-header">
                   All Category
@@ -44,12 +44,12 @@
                               <tr>
                                   <!-- <th scope="row">{{ $i++ }}</th> -->
                                   <th scope="row">{{ $categories->firstItem()+$loop->index }}</th>
-                                  <td>{{$category->cat_name}}</td>
                                   <td>{{$category->name}}</td>
+                                  <td>{{$category->user->name}}</td>
                                   <td>{{ Carbon\Carbon::parse($category->created_at)->diffForHumans()}}</td>
                                   <td>
                                     <a href="{{ url('category/edit/'.$category->id) }}" class="btn btn-info">Edit</a>
-                                    <a href="" class="btn btn-danger">Delete</a>
+                                    <a href="{{ url('category/softDelete/'.$category->id) }}" class="btn btn-danger">Delete</a>
                                   </td>
                               </tr>
                           @endforeach
@@ -58,7 +58,44 @@
                     {{ $categories->links() }}
                 </div>
               </div>
-          </div>
+              <hr >
+
+              <div class="card">
+                <div class="card-header">
+                  Trashed
+                </div>
+                <div class="card-body">
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">No</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">User</th>
+                          <th scope="col">Created At</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <!-- @php($i = 1) -->
+                          @foreach($trashed_categories as $category)
+                              <tr>
+                                  <!-- <th scope="row">{{ $i++ }}</th> -->
+                                  <th scope="row">{{ $trashed_categories->firstItem()+$loop->index }}</th>
+                                  <td>{{$category->name}}</td>
+                                  <td>{{$category->user->name}}</td>
+                                  <td>{{ Carbon\Carbon::parse($category->created_at)->diffForHumans()}}</td>
+                                  <td>
+                                    <a href="{{ url('category/restore/'.$category->id) }}" class="btn btn-info">Restore</a>
+                                    <a href="{{ url('category/delete/'.$category->id) }}" class="btn btn-info">Permanetly Delete</a>
+                                  </td>
+                              </tr>
+                          @endforeach
+                      </tbody>
+                    </table>
+                    {{ $trashed_categories->links() }}
+                </div>
+              </div>
+          <!-- </div> -->
         </div>
         <div class="col-12 col-sm-3">
           <div class="card">
