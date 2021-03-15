@@ -35,7 +35,7 @@
                           <th scope="col">Name</th>
                           <th scope="col">Image</th>
                           <th scope="col">Created At</th>
-                          <!-- <th scope="col">Action</th> -->
+                          <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -49,10 +49,10 @@
                                     <img class='w-50' src='{{ asset($brand->logo) }}' alt='brand logo' />
                                   </td>
                                   <td>{{ Carbon\Carbon::parse($brand->created_at)->diffForHumans()}}</td>
-                                  <!-- <td>
+                                  <td>
                                     <a href="{{ url('brand/edit/'.$brand->id) }}" class="btn btn-info">Edit</a>
-                                    <a href="{{ url('brand/softDelete/'.$brand->id) }}" class="btn btn-danger">Delete</a>
-                                  </td> -->
+                                    <a href="{{ url('brand/delete/'.$brand->id) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger">Delete</a>
+                                  </td>
                               </tr>
                           @endforeach
                       </tbody>

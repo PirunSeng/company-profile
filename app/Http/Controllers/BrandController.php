@@ -15,24 +15,81 @@ class BrandController extends Controller
 
     public function add(Request $request)
     {
-        $validateData = $request->validate([
+        $request->validate([
             'name' => 'required|unique:brands|min:4',
-            'logo' => 'mimes:jpg,bmp,png'
+            'logo' => 'required|mimes:jpg,bmp,png'
         ]);
 
-        $brand_image = $request->file('logo');
-        $name_gen = hexdec(uniqid());
-        $img_ext = strtolower($brand_image->extension());
-        $img_name = $name_gen . '.' . $img_ext;
-        $upload_location = 'image/brand/'; // inside public directory
-        $last_img = $upload_location . $img_name;
-        $brand_image->move($upload_location, $img_name);
-
         $brand = new Brand();
+        $brand_image = $request->file('logo');
+        if ($brand_image) {
+            $name_gen = hexdec(uniqid());
+            $img_ext = strtolower($brand_image->extension());
+            $img_name = $name_gen . '.' . $img_ext;
+            $upload_location = 'image/brand/'; // inside public directory
+            $last_img = $upload_location . $img_name;
+            $brand_image->move($upload_location, $img_name);
+            $brand->logo = $last_img;
+        }
+
         $brand->name = $request->name;
-        $brand->logo = $last_img;
         $brand->save();
 
         return Redirect()->back()->with('success', 'Brand successfully created');
+    }
+
+    public function edit($id)
+    {
+        $brand = Brand::find($id);
+        return view('admin.brand.edit', compact('brand'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|min:4',
+            'logo' => 'mimes:jpg,bmp,png'
+        ]);
+
+        $old_logo = $request->old_logo;
+        $brand_image = $request->file('logo');
+        if ($old_logo && $brand_image) {
+            unlink($old_logo);
+        }
+
+        $brand = Brand::find($id);
+
+        if ($brand_image) {
+            $name_gen = hexdec(uniqid());
+            $img_ext = strtolower($brand_image->extension());
+            $img_name = $name_gen . '.' . $img_ext;
+            $upload_location = 'image/brand/'; // inside public directory
+            $last_img = $upload_location . $img_name;
+            $brand_image->move($upload_location, $img_name);
+
+            $brand->update([
+                'name' => $request->name,
+                'logo' => $last_img
+            ]);
+        } else {
+            $brand->update([
+                'name' => $request->name
+            ]);
+        }
+
+        return Redirect()->back()->with('success', 'Brand successfully updated');
+    }
+
+    public function delete($id)
+    {
+        $brand = Brand::find($id);
+        $logo = $brand->logo;
+        if ($logo) {
+            unlink($logo);
+        }
+
+        $brand->delete();
+
+        return Redirect()->back()->with('success', 'Brand successfully deleted');
     }
 }

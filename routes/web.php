@@ -40,8 +40,6 @@ Route::get('/brand/all', [BrandController::class, 'index'])->name('brands');
 Route::post('/brand/add', [BrandController::class, 'add'])->name('store.brand');
 Route::get('/brand/edit/{id}', [BrandController::class, 'edit']);
 Route::post('/brand/update/{id}', [BrandController::class, 'update']);
-Route::get('/brand/softDelete/{id}', [BrandController::class, 'softDelete']);
-Route::get('/brand/restore/{id}', [BrandController::class, 'restore']);
 Route::get('/brand/delete/{id}', [BrandController::class, 'delete']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
