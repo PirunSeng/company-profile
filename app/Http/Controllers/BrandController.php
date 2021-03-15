@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class BrandController extends Controller
 {
@@ -23,12 +24,20 @@ class BrandController extends Controller
         $brand = new Brand();
         $brand_image = $request->file('logo');
         if ($brand_image) {
-            $name_gen = hexdec(uniqid());
-            $img_ext = strtolower($brand_image->extension());
-            $img_name = $name_gen . '.' . $img_ext;
-            $upload_location = 'image/brand/'; // inside public directory
-            $last_img = $upload_location . $img_name;
-            $brand_image->move($upload_location, $img_name);
+            // without Intervention/image pacakge
+            // $name_gen = hexdec(uniqid());
+            // $img_ext = strtolower($brand_image->extension());
+            // $img_name = $name_gen . '.' . $img_ext;
+            // $upload_location = 'image/brand/'; // inside public directory
+            // $last_img = $upload_location . $img_name;
+            // $brand_image->move($upload_location, $img_name);
+            // $brand->logo = $last_img;
+
+            // with Intervention/image pacakge
+            $name_gen = hexdec(uniqid()) . '.' . $brand_image->extension();
+            Image::make($brand_image)->resize(300, 200)->save('image/brand/' . $name_gen);
+            // Image::make($brand_image)->save('image/brand/' . $name_gen); // not resize
+            $last_img = 'image/brand/' . $name_gen;
             $brand->logo = $last_img;
         }
 

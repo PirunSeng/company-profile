@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MultipicController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,9 @@ Route::post('/brand/add', [BrandController::class, 'add'])->name('store.brand');
 Route::get('/brand/edit/{id}', [BrandController::class, 'edit']);
 Route::post('/brand/update/{id}', [BrandController::class, 'update']);
 Route::get('/brand/delete/{id}', [BrandController::class, 'delete']);
+
+Route::get('/multipic/all', [MultipicController::class, 'index'])->name('multipics');
+Route::post('/multipic/add', [MultipicController::class, 'add'])->name('store.multipic');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     // $users = User::all(); // using this, in view no need to use Carbon\Carbon::parse(...)
