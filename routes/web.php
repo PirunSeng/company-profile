@@ -3,8 +3,6 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ContactController;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,9 +41,7 @@ Route::post('/brand/update/{id}', [BrandController::class, 'update']);
 Route::get('/brand/delete/{id}', [BrandController::class, 'delete']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    // $users = User::all(); // using this, in view no need to use Carbon\Carbon::parse(...)
-    $users = DB::table('users')->get();
-    return view('dashboard', compact('users'));
+    return view('admin.index');
 })->name('dashboard');
 
 Route::get('/email/verify', function () {
