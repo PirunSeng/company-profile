@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MultipicController;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/about-bla-bla-bla', [ContactController::class, 'index'])->name('con');
@@ -47,7 +46,11 @@ Route::get('/multipic/all', [MultipicController::class, 'index'])->name('multipi
 Route::post('/multipic/add', [MultipicController::class, 'add'])->name('store.multipic');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    // $users = User::all(); // using this, in view no need to use Carbon\Carbon::parse(...)
-    $users = DB::table('users')->get();
-    return view('dashboard', compact('users'));
+    return view('admin.index');
 })->name('dashboard');
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
