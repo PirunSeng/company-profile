@@ -90,11 +90,6 @@
                 <div class="sub-menu">
                   <li class="active">
                     <a class="sidenav-item-link" href="index.html">
-                      <span class="nav-text">Slider</span>
-                    </a>
-                  </li>
-                  <li class="active">
-                    <a class="sidenav-item-link" href="index.html">
                       <span class="nav-text">About</span>
                     </a>
                   </li>
@@ -108,6 +103,11 @@
                       <span class="nav-text">Brand</span>
 
                       <span class="badge badge-success">new</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="sidenav-item-link" href="{{ route('home.slider') }}">
+                      <span class="nav-text">Slider</span>
                     </a>
                   </li>
                 </div>
