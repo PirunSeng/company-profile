@@ -51,6 +51,8 @@ Route::post('/multipic/add', [MultipicController::class, 'add'])->name('store.mu
 
 // Admin all route
 Route::get('/home/slider', [HomeController::class, 'slider'])->name('home.slider');
+Route::get('/home/slider/create', [HomeController::class, 'createSlider'])->name('add.slider');
+Route::post('/home/slider/store', [HomeController::class, 'storeSlider'])->name('store.slider');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('admin.index');
