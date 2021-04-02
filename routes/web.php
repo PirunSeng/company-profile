@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
@@ -22,7 +23,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $brands = DB::table('brands')->get();
-    return view('home', compact('brands'));
+    $homeabout = DB::table('home_abouts')->first();
+    return view('home', compact('brands', 'homeabout'));
 });
 
 Route::get('/about-bla-bla-bla', [ContactController::class, 'index'])->name('con');
@@ -53,6 +55,14 @@ Route::post('/multipic/add', [MultipicController::class, 'add'])->name('store.mu
 Route::get('/home/slider', [HomeController::class, 'slider'])->name('home.slider');
 Route::get('/home/slider/create', [HomeController::class, 'createSlider'])->name('add.slider');
 Route::post('/home/slider/store', [HomeController::class, 'storeSlider'])->name('store.slider');
+
+// Home About
+Route::get('/home/about', [AboutController::class, 'homeAbout'])->name('home.about');
+Route::get('/about/add', [AboutController::class, 'add'])->name('add.about');
+Route::post('/about/store', [AboutController::class, 'store'])->name('store.about');
+Route::get('/about/edit/{id}', [AboutController::class, 'edit'])->name('edit.about');
+Route::post('/about/update/{id}', [AboutController::class, 'update'])->name('update.about');
+Route::get('/about/delete/{id}', [AboutController::class, 'delete'])->name('delete.about');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('admin.index');
