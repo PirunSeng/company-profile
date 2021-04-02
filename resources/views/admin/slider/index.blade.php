@@ -34,11 +34,11 @@
                   <table class="table">
                       <thead>
                         <tr>
-                          <th scope="col">SL</th>
-                          <th scope="col">Title</th>
-                          <th scope="col">Description</th>
-                          <th scope="col">Image</th>
-                          <th scope="col">Action</th>
+                          <th scope="col" width="5%">SL</th>
+                          <th scope="col" width="15%">Title</th>
+                          <th scope="col" width="15%">Description</th>
+                          <th scope="col" width="15%">Image</th>
+                          <th scope="col" width="15%">Action</th>
                         </tr>
                       </thead>
                       <tbody>

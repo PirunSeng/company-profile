@@ -29,7 +29,6 @@ class HomeController extends Controller
             $last_img = 'image/slider/' . $name_gen;
             $slider->image = $last_img;
         }
-
         $slider->title = $request->title;
         $slider->description = $request->description;
         $slider->save();
